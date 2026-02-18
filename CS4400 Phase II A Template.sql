@@ -1,11 +1,10 @@
 -- CS4400: Introduction to Database Systems (Spring 2026)
 -- Phase II A: Create Table Statements [v0] [February 9th, 2026]
 
--- Team __
--- Team Member Name (GT username)
--- Team Member Name (GT username)
--- Team Member Name (GT username)
--- Team Member Name (GT username)
+-- Team 111
+-- Keelie Lewis (klewis302@gatech.edu)
+-- Joanna Kim
+-- Sarah Grace Pfanstiel (GT username)
 
 -- Directions:
 -- Please follow all instructions for Phase II A as listed in the instructions document.
@@ -28,4 +27,5 @@ use media_streaming_service;
 -- Define the database structures
 /* You must enter your tables definitions (with primary, unique, and foreign key declarations,
 data types, and check constraints) here.  You may sequence them in any order that 
+
 works for you (and runs successfully). */
