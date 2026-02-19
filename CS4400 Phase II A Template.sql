@@ -35,7 +35,7 @@ CREATE TABLE `user` (
   name Varchar(100) not null, 
   bdate date not null,
   email varchar(255) not null,
-  primary key (AccountId),
+  primary key (AccountID),
   Unique (email));
 
 -- Subscription
@@ -171,7 +171,7 @@ create table streams (
   foreign key (ContentID)
     references content(ContentID)
     on update cascade
-    on delete cascade,
+    on delete cascade);
 
 -- podcast series
 create table podcast_series (
@@ -260,6 +260,7 @@ create table makes_up (
     
     
   
+
 
 
 
