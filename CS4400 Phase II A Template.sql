@@ -30,7 +30,7 @@ data types, and check constraints) here.  You may sequence them in any order tha
 
 works for you (and runs successfully). */
 -- User
-CREATE TABLE user (
+CREATE TABLE `user` (
   AccountID INT NOT NULL,
   name Varchar(100) not null, 
   bdate date not null,
@@ -82,15 +82,15 @@ create table listener (
   username Varchar(50) not null,
   subscriptionID int not null,
   primary key (AccountID),
-  Unique (username)
+  Unique (username),
   foreign key (AccountID)
-      references user(AccountID)
+      references `user`(AccountID)
       on update cascade
-      on delete cascade
+      on delete cascade,
   foreign key (subscriptionID)
       references subscription(SubscriptionID)
       on update cascade
-      on delete cascade);
+      on delete restrict);
 
 -- Creator
 create table creator (
@@ -134,8 +134,8 @@ create table playlist (
 create table friends (
   listener1_id int not null,
   listener2_id int not null,
-  primary key (listerner1_id, listener2_id),
-  check (listerner1_id <> listener2_id),
+  primary key (listener1_id, listener2_id),
+  check (listener1_id <> listener2_id),
   foreign key (listener1_id)
     references listener(AccountID)
     on update cascade
@@ -189,7 +189,6 @@ create table podcast_episode (
   episode_number int not null,
   primary key (ContentID),
   Unique (podcastID, episode_number),
-  check (episode_number >=1),
   foreign key (ContentID)
     references content(AccountID)
     on update cascade
@@ -240,11 +239,10 @@ create table makes_up (
   ContentID int not null,
   track_order int not null,
   primary key (PlaylistID, track_order),
-  check (track_order) >= 1),
   foreign key (PlaylistID)
     references playlist(PlaylistID)
     on update cascade
-    on delete cascade)
+    on delete cascade,
   foreign key (ContentID)
     references song(ContentID)
     on update cascade
@@ -263,5 +261,6 @@ create table makes_up (
     
     
   
+
 
 
