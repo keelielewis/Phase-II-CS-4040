@@ -92,8 +92,176 @@ create table listener (
       on update cascade
       on delete cascade);
 
--- creator
+-- Creator
+create table creator (
+  AccountID int not null,
+  stage_name varchar(100) not null,
+  biography varchar(1000),
+  pinnedContentID int,
+  primary key (AccountID),
+  foreign key (AccountID)
+    references `user`(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (pinnedContentID)
+    references content(ContentID)
+    on update cascade
+    on delete set null);
+
+-- Socials 
+  create table socials (
+    AccountID int not null,
+    handle varchar(100) not null,
+    platform varchar(50) not null,
+    primary key (AccountID, platform, handle), 
+    foreign key (AccountID)
+      references creator(AccountID)
+      on update cascade
+      on delete cascade);
+
+-- Playlist
+create table playlist (
+  PlaylistID int not null,
+  name varchar(200) not null,
+  listenerID int not null,
+  primary key (PlaylistID),
+  foreign key (listenerID)
+    references listener(AccountID)
+    on update cascade
+    on delete cascade);
+
+-- Friends
+create table friends (
+  listener1_id int not null,
+  listener2_id int not null,
+  primary key (listerner1_id, listener2_id),
+  check (listerner1_id <> listener2_id),
+  foreign key (listener1_id)
+    references listener(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (listener2_id)
+    references listener(AccountID)
+    on update cascade
+    on delete cascade);
+
+-- creator_creates
+create table creator_creates (
+  creatorID int not null,
+  ContentID int not null,
+  primary key (creatorID, ContentID),
+  foreign key (creatorID)
+    references creator(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (ContentID)
+    references content(ContentID)
+    on update cascade
+    on delete cascade);
+
+-- streams
+create table streams (
+  listenerID int not null,
+  ContentID int not null,
+  stream_timestamp datetime not null,
+  primary key (listenerID, ContentID, stream_timestamp),
+  foreign key (listenerID)
+    references listener(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (ContentID)
+    references content(AccountID)
+    on update cascade
+    on delete cascade,
+
+-- podcast series
+create table podcast_series (
+  PodcastID int not null,
+  title varchar(200) not null,
+  description varchar(1000),
+  primary key (PodcastID));
+
+-- podcast episode
+create table podcast_episode (
+  ContentID int not null,
+  topic varchar(200) not null,
+  podcastID int not null,
+  episode_number int not null,
+  primary key (ContentID),
+  Unique (podcastID, episode_number),
+  check (episode_number >=1),
+  foreign key (ContentID)
+    references content(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (podcastID)
+    references podcast_series(PodcastID)
+    on update cascade
+    on delete restrict,
+
+-- album
+create table album (
+  creatorID int not null,
+  name varchar(200) not null,
+  primary key (creatorID, name),
+  foreign key (creatorID)
+    references creator(AccountID)
+    on update cascade
+    on delete cascade);
+
+-- song
+create table song (
+  ContentID int not null,
+  album_creator_id int,
+  album_name varchar(200),
+  primary key (ContentID),
+  foreign key (ContentID)
+    references content(AccountID)
+    on update cascade
+    on delete cascade,
+  foreign key (album_creator_id, album_name)
+    references album(creatorID, name)
+    on update cascade
+    on delete set null;
+
+-- genres
+create table genres (
+  ContentID int not null,
+  genre varchar(50) not null,
+  primary key (ContentID, genre),
+  foreign key (ContentID)
+    references song(ContentID)
+    on update cascade
+    on delete cascade);
+
+-- makes_up
+create table makes_up (
+  PlaylistID int not null,
+  ContentID int not null,
+  track_order int not null,
+  primary key (PlaylistID, track_order),
+  check (track_order) >= 1),
+  foreign key (PlaylistID)
+    references playlist(PlaylistID)
+    on update cascade
+    on delete cascade)
+  foreign key (ContentID)
+    references song(ContentID)
+    on update cascade
+    on delete cascade);
+
+  
+
+
+  
+  
+  
   
     
+
   
+    
+    
+  
+
 
