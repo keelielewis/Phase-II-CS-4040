@@ -135,7 +135,6 @@ create table friends (
   listener1_id int not null,
   listener2_id int not null,
   primary key (listener1_id, listener2_id),
-  check (listener1_id <> listener2_id),
   foreign key (listener1_id)
     references listener(AccountID)
     on update cascade
@@ -170,7 +169,7 @@ create table streams (
     on update cascade
     on delete cascade,
   foreign key (ContentID)
-    references content(AccountID)
+    references content(ContentID)
     on update cascade
     on delete cascade,
 
@@ -190,13 +189,13 @@ create table podcast_episode (
   primary key (ContentID),
   Unique (podcastID, episode_number),
   foreign key (ContentID)
-    references content(AccountID)
+    references content(ContentID)
     on update cascade
     on delete cascade,
   foreign key (podcastID)
     references podcast_series(PodcastID)
     on update cascade
-    on delete restrict,
+    on delete restrict);
 
 -- album
 create table album (
@@ -215,13 +214,13 @@ create table song (
   album_name varchar(200),
   primary key (ContentID),
   foreign key (ContentID)
-    references content(AccountID)
+    references content(ContentID)
     on update cascade
     on delete cascade,
   foreign key (album_creator_id, album_name)
     references album(creatorID, name)
     on update cascade
-    on delete set null;
+    on delete set null);
 
 -- genres
 create table genres (
@@ -261,6 +260,7 @@ create table makes_up (
     
     
   
+
 
 
 
