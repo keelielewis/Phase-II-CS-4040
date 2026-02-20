@@ -3,8 +3,8 @@
 
 -- Team 111
 -- Keelie Lewis (klewis302@gatech.edu)
--- Joanna Kim
--- Sarah Grace Pfanstiel (GT username)
+-- Joanna Kim (jkim4068@gatech.edu)
+-- Sarah Grace Pfanstiel (spfanstiel3@gatech.edu)
 
 -- Directions:
 -- Please follow all instructions for Phase II A as listed in the instructions document.
@@ -27,8 +27,8 @@ use media_streaming_service;
 -- Define the database structures
 /* You must enter your tables definitions (with primary, unique, and foreign key declarations,
 data types, and check constraints) here.  You may sequence them in any order that 
-
 works for you (and runs successfully). */
+
 -- User
 CREATE TABLE `user` (
   AccountID INT NOT NULL,
@@ -260,6 +260,7 @@ create table makes_up (
     
     
   
+
 
 
 
