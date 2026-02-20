@@ -74,7 +74,9 @@ create table content (
   language varchar(50) not null,
   length int not null,
   maturity varchar(30) not null,
-  primary key (ContentID));
+  primary key (ContentID),
+  check (length >= 60),
+  check (maturity in ('Explicit', 'Not Explicit')));
 
 -- Listener 
 create table listener (
@@ -95,7 +97,7 @@ create table listener (
 -- Creator
 create table creator (
   AccountID int not null,
-  stage_name varchar(100) not null,
+  stage_name varchar(100),
   biography varchar(1000),
   pinnedContentID int,
   primary key (AccountID),
@@ -142,7 +144,8 @@ create table friends (
   foreign key (listener2_id)
     references listener(AccountID)
     on update cascade
-    on delete cascade);
+    on delete cascade),
+  check (listener1_id <> listener2_id);
 
 -- creator_creates
 create table creator_creates (
@@ -220,7 +223,8 @@ create table song (
   foreign key (album_creator_id, album_name)
     references album(creatorID, name)
     on update cascade
-    on delete set null);
+    on delete set null,
+  check (album_creator_id is null and album_name is null) or (album_creator_id is not null and album_name is not null));
 
 -- genres
 create table genres (
@@ -260,6 +264,7 @@ create table makes_up (
     
     
   
+
 
 
 
